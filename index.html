@@ -592,25 +592,17 @@ p.lead{font-size:19px;line-height:1.65;color:var(--ink-soft);font-style:italic;f
   ctx.fillStyle='rgba(58,38,8,.85)'; ctx.textAlign='center';
   ctx.font='600 30px Montserrat, sans-serif'; ctx.fillText('S C R A T C H   H E R E', W/2, H/2-4);
   ctx.font='26px serif'; ctx.fillText('❦', W/2, H/2+36);
-  var drawing=false, moves=0;
-  function erase(e){
-    var r=cv.getBoundingClientRect();
-    var cx=(e.clientX-r.left)*W/r.width, cy=(e.clientY-r.top)*H/r.height;
-    ctx.globalCompositeOperation='destination-out';
-    ctx.fillStyle='#000';
-    ctx.beginPath(); ctx.arc(cx,cy,30,0,7); ctx.fill();
-    if(++moves%12===0) checkCleared();
-  }
-  function checkCleared(){
-    try{
-      var d=ctx.getImageData(0,0,W,H).data, clear=0, tot=0;
-      for(var i=3;i<d.length;i+=256){ tot++; if(d[i]===0) clear++; }
-      if(clear/tot>.45) cv.classList.add('gone');
-    }catch(_){}
-  }
-  cv.addEventListener('pointerdown',function(e){ drawing=true; erase(e); try{ cv.setPointerCapture(e.pointerId); }catch(_){} });
-  cv.addEventListener('pointermove',function(e){ if(drawing) erase(e); });
-  ['pointerup','pointercancel'].forEach(function(ev){ cv.addEventListener(ev,function(){ drawing=false; checkCleared(); }); });
+  var drawing=false, moves=0, lastX=null, lastY=null;
+var BRUSH=36, sprite=document.createElement('canvas'); sprite.width=sprite.height=BRUSH*2;
+var sctx=sprite.getContext('2d'); var rg=sctx.createRadialGradient(BRUSH,BRUSH,0,BRUSH,BRUSH,BRUSH);
+rg.addColorStop(0,'rgba(0,0,0,1)'); rg.addColorStop(.55,'rgba(0,0,0,.95)'); rg.addColorStop(1,'rgba(0,0,0,0)');
+sctx.fillStyle=rg; sctx.fillRect(0,0,BRUSH*2,BRUSH*2);
+function checkCleared(){ try{ var d=ctx.getImageData(0,0,W,H).data, clear=0, tot=0; for(var i=3;i<d.length;i+=256){ tot++; if(d[i]===0) clear++; } if(clear/tot>.45) cv.classList.add('gone'); }catch(_){} }
+function stamp(x,y){ ctx.globalCompositeOperation='destination-out'; ctx.drawImage(sprite,x-BRUSH,y-BRUSH); if(++moves%14===0) checkCleared(); }
+function eraseTo(e){ var r=cv.getBoundingClientRect(); var cx=(e.clientX-r.left)*W/r.width, cy=(e.clientY-r.top)*H/r.height; if(lastX===null){ stamp(cx,cy); } else { var dx=cx-lastX, dy=cy-lastY, dist=Math.sqrt(dx*dx+dy*dy), steps=Math.max(1,Math.round(dist/8)); for(var i=1;i<=steps;i++){ stamp(lastX+dx*i/steps, lastY+dy*i/steps); } } lastX=cx; lastY=cy; }
+cv.addEventListener('pointerdown',function(e){ drawing=true; lastX=null; lastY=null; eraseTo(e); try{ cv.setPointerCapture(e.pointerId); }catch(_){} });
+cv.addEventListener('pointermove',function(e){ if(!drawing) return; var evs=(e.getCoalescedEvents?e.getCoalescedEvents():[e]); if(!evs.length) evs=[e]; for(var i=0;i<evs.length;i++) eraseTo(evs[i]); });
+['pointerup','pointercancel'].forEach(function(ev){ cv.addEventListener(ev,function(){ drawing=false; lastX=null; lastY=null; checkCleared(); }); });
   $('#revealBtn').addEventListener('click',function(){ cv.classList.add('gone'); });
 
   /* ---------- add to calendar (.ics) ---------- */
