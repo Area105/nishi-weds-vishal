@@ -24,7 +24,7 @@
   --ivory:#FDF6E9; --ivory-2:#F7ECD4; --cream-card:#FFFBEF;
   --maroon:#6d1a2d; --maroon-2:#8a2438;
   --gold:#C9A86A; --gold-bright:#E7CF9A; --gold-deep:#A9853F;
-  --ink:#3a2a1c; --ink-soft:#6b5744;
+  --ink:#3a2a1c; --ink-soft:#503A24;
   --col:500px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -43,11 +43,7 @@ body.locked{overflow:hidden;height:100dvh}
   padding-bottom:96px;
 }
 /* ---------- shared bits ---------- */
-.eyebrow{
-  font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;
-  letter-spacing:.42em;text-transform:uppercase;color:var(--gold-deep);
-  text-align:center;
-}
+.eyebrow{ font-family:'Montserrat',sans-serif;font-size:12.5px;font-weight:600; letter-spacing:.34em;text-transform:uppercase;color:#8C6D1F; text-align:center; }
 .eyebrow.light{color:var(--gold-bright)}
 .script{font-family:'Great Vibes',cursive;font-weight:400}
 .divider{display:flex;align-items:center;justify-content:center;gap:10px;margin:18px auto}
@@ -60,7 +56,8 @@ h2.title{
   font-size:34px;font-weight:600;letter-spacing:.04em;color:var(--maroon);
   line-height:1.15;margin-top:12px;
 }
-p.lead{font-size:19px;line-height:1.65;color:var(--ink-soft);font-style:italic;max-width:400px;margin:14px auto 0}
+p.lead{font-size:19px;line-height:1.65;color:var(--ink-soft);font-style:italic;font-weight:500;max-width:400px;margin:14px auto 0}
+#welcome p em{font-weight:500}
 .rv{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
 .rv.in{opacity:1;transform:none}
 .btn{
