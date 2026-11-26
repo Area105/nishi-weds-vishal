@@ -75,18 +75,19 @@ p.lead{font-size:19px;line-height:1.65;color:var(--ink-soft);font-style:italic;m
 /* ---------- COVER ---------- */
 #cover{
   position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(120% 100% at 50% 0%,#0a1119 0%,#060a10 70%);
-  transition:visibility 0s linear 1.5s;
+  background:transparent;
+  transition:visibility 0s linear 1.45s;
 }
 #cover.opened{visibility:hidden;pointer-events:none}
 .door{
-  position:absolute;top:0;bottom:0;width:50.5%;
-  background:
-    radial-gradient(90% 60% at 50% 18%,rgba(231,207,154,.20),transparent 60%),
-    linear-gradient(160deg,var(--navy-2) 0%,var(--navy-1) 55%,var(--navy-deep) 100%);
-  transition:transform 1.4s cubic-bezier(.7,0,.2,1);
+  position:absolute;top:0;bottom:0;width:50.5%;z-index:1;
+  background:linear-gradient(180deg,#221106,#38200f 55%,#281507);
+  transition:transform 1.25s cubic-bezier(.22,1,.36,1);
   overflow:hidden;
 }
+.doorbg{position:absolute;top:0;height:100%;width:100vw;max-width:500px;background:var(--hero-img) center 30%/cover no-repeat;opacity:.30;filter:saturate(.85) brightness(.55);z-index:-1}
+.door.left .doorbg{left:0}
+.door.right .doorbg{right:0}
 .door::before{ /* arch outline */
   content:"";position:absolute;top:6%;bottom:6%;width:78%;
   border:1.5px solid var(--gold);border-radius:999px 999px 6px 6px;opacity:.85;
@@ -340,8 +341,8 @@ p.lead{font-size:19px;line-height:1.65;color:var(--ink-soft);font-style:italic;m
 
 <!-- ================= COVER ================= -->
 <div id="cover" role="dialog" aria-label="Wedding invitation cover">
-  <div class="door left"></div>
-  <div class="door right"></div>
+  <div class="door left"><div class="doorbg"></div></div>
+  <div class="door right"><div class="doorbg"></div></div>
   <div class="cover-inner">
     <div class="monogram-oval"><span>N&nbsp;&amp;&nbsp;V</span></div>
     <div class="eyebrow light cover-eyebrow">The Wedding Of</div>
