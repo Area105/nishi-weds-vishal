@@ -138,8 +138,9 @@ p.lead{font-size:19px;line-height:1.65;color:var(--ink-soft);font-style:italic;m
     var(--hero-img) center 22%/cover no-repeat,
     linear-gradient(178deg,#38587c 0%,var(--navy-2) 30%,var(--navy-1) 68%,var(--navy-deep) 100%);
 }
-.hero-bottom{text-align:center;position:relative;z-index:1;margin-top:5.5vh;padding:30px 20px 26px}
-.hero-bottom::before{content:"";position:absolute;inset:-26px -30px;z-index:-1;border-radius:30px;background:rgba(26,15,6,.10);backdrop-filter:blur(9px) saturate(1.08);-webkit-backdrop-filter:blur(9px) saturate(1.08);-webkit-mask-image:radial-gradient(118% 118% at 50% 50%,#000 38%,transparent 88%);mask-image:radial-gradient(118% 118% at 50% 50%,#000 38%,transparent 88%)}
+.hero-blur{position:absolute;inset:0;z-index:0;pointer-events:none;background:var(--hero-img) center 22%/cover no-repeat;filter:blur(14px) brightness(.93);-webkit-mask-image:radial-gradient(62% 36% at 50% 42%,#000 25%,transparent 72%);mask-image:radial-gradient(62% 36% at 50% 42%,#000 25%,transparent 72%)}
+.hero-bottom{text-align:center;position:relative;z-index:1;margin-top:5.5vh}
+
 .hero > *:not(.archbg){position:relative;z-index:1}
 .hero .archbg{position:absolute;inset:0;opacity:.11;pointer-events:none}
 .hero-mono{
@@ -368,7 +369,8 @@ p.lead{font-size:19px;line-height:1.65;color:var(--ink-soft);font-style:italic;m
       </defs>
       <rect width="500" height="800" fill="url(#arches)"/>
     </svg>
-    <div class="hero-mono"><span>N &amp; V</span></div>
+    <div class="hero-blur" aria-hidden="true"></div>
+<div class="hero-mono"><span>N &amp; V</span></div>
     <div class="hero-bottom">
       <div class="eyebrow light">The Wedding Of</div>
       <h1 style="margin-top:12px">NISHI</h1>
