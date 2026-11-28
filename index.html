@@ -558,6 +558,8 @@ p.lead{font-size:19px;line-height:1.65;color:var(--ink-soft);font-style:italic;f
     cover.classList.add('opened');
     document.body.classList.remove('locked');
     musicBtn.classList.add('show');
+    var bgm=$('#bgm');
+    if(bgm.getAttribute('src')){ bgm.play().then(function(){ musicBtn.classList.add('playing'); musicBtn.setAttribute('aria-pressed','true'); }).catch(function(){}); }
   }
   $('#enterBtn').addEventListener('click',openCover);
   if(/[?&#]no-cover/.test(location.href)){
